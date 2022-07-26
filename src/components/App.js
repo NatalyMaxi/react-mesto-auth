@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { Route, Switch } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute.js';
 import api from '../utils/api.js';
 import Header from './Header.js';
 import Main from './Main.js';
@@ -21,6 +22,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -138,7 +140,9 @@ function App() {
             </Route>
             <Route path="/sign-up">
             </Route>
-            <Main
+            <ProtectedRoute
+              path="/"
+              component={Main}
               onEditProfile={handleEditProfileClick}
               onEditAvatar={handleEditAvatarClick}
               onAddPlace={handleAddPlaceClick}
@@ -146,8 +150,9 @@ function App() {
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
               onCardDeleteClick={handleCardDeleteClick}
+              loggedIn={isLoggedIn}
             />
-          </Switch>  
+          </Switch>
           <Footer />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
