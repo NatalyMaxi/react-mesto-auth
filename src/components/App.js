@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { Route, Switch } from 'react-router-dom';
 import api from '../utils/api.js';
 import Header from './Header.js';
 import Main from './Main.js';
@@ -132,15 +133,21 @@ function App() {
       <div className="page">
         <div className="page__container">
           <Header />
-          <Main
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            cards={cards}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDeleteClick={handleCardDeleteClick}
-          />
+          <Switch>
+            <Route path="/sign-in">
+            </Route>
+            <Route path="/sign-up">
+            </Route>
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              cards={cards}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDeleteClick={handleCardDeleteClick}
+            />
+          </Switch>  
           <Footer />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
