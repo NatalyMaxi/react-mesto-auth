@@ -4,6 +4,8 @@
 @import url(./blocks/page/__container/page__container.css);
 @import url(./blocks/header/header.css);
 @import url(./blocks/logo/logo.css);
+@import url(./blocks/capabilities/capabilities.css);
+@import url(./blocks/capabilities/__title/capabilities__title.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__info/profile__info.css);
 @import url(./blocks/profile/__container-avatar/profile__container-avatar.css);
@@ -40,6 +42,8 @@
 @import url(./blocks/form/__error/_type/form__error_place_top.css);
 @import url(./blocks/form/__error/_type/form__error_place_bottom.css);
 @import url(./blocks/form/__item/form__item.css);
+@import url(./blocks/form/__item/_type/form__item_type_white.css);
 @import url(./blocks/form/__item/_type/form__item_type_error.css);
 @import url(./blocks/form/__button/form__button.css);
 @import url(./blocks/form/__button/_type/form__button_type_disabled.css);
+@import url(./blocks/form/__button/_type/form__button_type_white.css);

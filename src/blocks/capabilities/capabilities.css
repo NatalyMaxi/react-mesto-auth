@@ -1,0 +1,6 @@
+.capabilities {
+   display: flex;
+   flex: auto;
+   flex-direction: column;
+   margin: 0 auto;
+}

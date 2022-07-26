@@ -11,6 +11,7 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import PopupWithConfirmation from './PopupWithConfirmation.js';
+import Login from './Login.js';
 
 function App() {
 
@@ -137,6 +138,7 @@ function App() {
           <Header />
           <Switch>
             <Route path="/sign-in">
+              <Login />
             </Route>
             <Route path="/sign-up">
             </Route>
