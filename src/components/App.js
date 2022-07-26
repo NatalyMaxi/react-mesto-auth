@@ -12,6 +12,7 @@ import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import PopupWithConfirmation from './PopupWithConfirmation.js';
 import Login from './Login.js';
+import Register from './Register.js';
 
 function App() {
 
@@ -141,6 +142,7 @@ function App() {
               <Login />
             </Route>
             <Route path="/sign-up">
+              <Register />
             </Route>
             <ProtectedRoute
               path="/"
@@ -162,17 +164,17 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser} />
-          
+
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar} />
-          
+
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit} />
-          
+
           <PopupWithConfirmation
             isOpen={isConfirmationPopupOpen}
             onClose={closeAllPopups}
