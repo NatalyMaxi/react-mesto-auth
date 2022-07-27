@@ -1,6 +1,7 @@
 .capabilities {
-   display: flex;
-   flex: auto;
-   flex-direction: column;
+   padding: 34px 36px 37px;
    margin: 0 auto;
+   max-width: 430px;
+   width: 100%;
+   box-sizing: border-box;
 }

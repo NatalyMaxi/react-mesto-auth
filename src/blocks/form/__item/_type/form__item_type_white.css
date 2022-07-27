@@ -1,6 +1,7 @@
 .form__item_type_white {
    color: #ffffff;
    border-bottom: 2px solid rgba(204, 204, 204, 1);
+   background: #000000;
 }
 
 .form__item_type_white::placeholder {
