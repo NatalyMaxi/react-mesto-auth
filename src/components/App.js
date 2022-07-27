@@ -11,6 +11,7 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import PopupWithConfirmation from './PopupWithConfirmation.js';
+import InfoTooltip from './InfoTooltip.js';
 import Login from './Login.js';
 import Register from './Register.js';
 
@@ -20,6 +21,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [removedCardId, setRemovedCardId] = useState('');
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
@@ -45,13 +47,18 @@ function App() {
   function handleCardDeleteClick(cardId) {
     setIsConfirmationPopupOpen(!isConfirmationPopupOpen);
     setRemovedCardId(cardId);
-  }
+  };
+
+  function handleInfoTooltip() {
+    setIsInfoTooltipOpen(!isInfoTooltipOpen);
+  };
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsAddPlacePopupOpen(false)
-    setIsConfirmationPopupOpen(false);
+    setIsConfirmationPopupOpen(false)
+    setIsInfoTooltipOpen(false)
     setSelectedCard({})
   };
 
@@ -179,8 +186,11 @@ function App() {
             isOpen={isConfirmationPopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleCardDelete}
-            card={removedCardId}
-          />
+            card={removedCardId} />
+          
+          <InfoTooltip
+            onClose={closeAllPopups}
+            isOpen={isInfoTooltipOpen}/>
         </div>
       </div>
     </CurrentUserContext.Provider >
