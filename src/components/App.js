@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.js';
 import api from '../utils/api.js';
+import * as auth from '../utils/auth.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -27,6 +28,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegistration, setIsRegistration] = useState(false);
+  const history = useHistory();
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -120,6 +123,32 @@ function App() {
       });
   };
 
+  function handleRegistration(data) {
+    return auth
+      .register(data)
+      .then((data) => {
+        setIsRegistration(true);
+        handleInfoTooltip();
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsRegistration(false);
+        handleInfoTooltip();
+      });
+  };
+
+  function handleAuthorization(data) {
+    return auth
+      .authorize(data)
+      .then((data) => {
+        setIsLoggedIn(true);
+        localStorage.setItem('jwt', data.token);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -146,14 +175,15 @@ function App() {
           <Header />
           <Switch>
             <Route path="/sign-in">
-              <Login />
+              <Login onLogin={handleAuthorization} />
             </Route>
             <Route path="/sign-up">
-              <Register />
+              <Register onRegister={handleRegistration} />
             </Route>
             <ProtectedRoute
               path="/"
               component={Main}
+              loggedIn={isLoggedIn}
               onEditProfile={handleEditProfileClick}
               onEditAvatar={handleEditAvatarClick}
               onAddPlace={handleAddPlaceClick}
@@ -161,7 +191,6 @@ function App() {
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
               onCardDeleteClick={handleCardDeleteClick}
-              loggedIn={isLoggedIn}
             />
           </Switch>
           <Footer />
@@ -187,10 +216,12 @@ function App() {
             onClose={closeAllPopups}
             onSubmit={handleCardDelete}
             card={removedCardId} />
-          
+
           <InfoTooltip
             onClose={closeAllPopups}
-            isOpen={isInfoTooltipOpen}/>
+            isOpen={isInfoTooltipOpen}
+            isConfirmed={isRegistration}
+          />
         </div>
       </div>
     </CurrentUserContext.Provider >

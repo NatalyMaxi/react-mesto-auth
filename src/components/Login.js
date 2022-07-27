@@ -1,18 +1,23 @@
 import { useState } from 'react';
 
-function Login() {
+function Login({ onLogin }) {
 
    const [loginDataUser, setLoginDataUser] = useState({});
 
    function handleChange(evt) {
       const { name, value } = evt.target;
       setLoginDataUser({
+         ...loginDataUser,
          [name]: value
       });
    }
 
    function handleSubmit(evt) {
       evt.preventDefault();
+      if (!loginDataUser.email || !loginDataUser.password) {
+         return;
+      }
+      onLogin(loginDataUser);
    }
 
    return (
@@ -27,10 +32,11 @@ function Login() {
                className="form__item form__item_type_white"
                name="email"
                placeholder="Email"
+               autoComplete="email"
                value={loginDataUser.email || ''}
                onChange={handleChange}
             />
-            <span className="form__error"></span>
+            <span className="form__error form__error_place_top"></span>
 
             <input
                id="password"
@@ -41,10 +47,11 @@ function Login() {
                className="form__item form__item_type_white"
                name="password"
                placeholder="Пароль"
+               autoComplete="password"
                value={loginDataUser.password || ''}
                onChange={handleChange}
             />
-            <span className="form__error"></span>
+            <span className="form__error form__error_place_bottom"></span>
 
             <button
                className="form__button form__button_type_white"
