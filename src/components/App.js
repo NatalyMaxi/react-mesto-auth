@@ -172,7 +172,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header />
+          <Header loggedIn={isLoggedIn} />
           <Switch>
             <Route path="/sign-in">
               <Login onLogin={handleAuthorization} />
