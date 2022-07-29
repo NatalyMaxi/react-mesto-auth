@@ -29,6 +29,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegistration, setIsRegistration] = useState(false);
+  const [authorizationUserEmail, setAuthorizationUserEmail] = useState('');
   const history = useHistory();
 
   function handleEditProfileClick() {
@@ -149,6 +150,37 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  function handleTokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+    auth
+      .getContent(jwt)
+      .then((data) => {
+        setAuthorizationUserEmail(data.data.email);
+        setIsLoggedIn(true);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/');
+    }
+  }, [isLoggedIn]);
+
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+  };
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -172,7 +204,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header loggedIn={isLoggedIn} />
+          <Header loggedIn={isLoggedIn} userEmail={authorizationUserEmail} onSignOut={handleSignOut} />
           <Switch>
             <Route path="/sign-in">
               <Login onLogin={handleAuthorization} />
