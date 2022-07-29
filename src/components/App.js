@@ -32,6 +32,12 @@ function App() {
   const [authorizationUserEmail, setAuthorizationUserEmail] = useState('');
   const history = useHistory();
 
+  const [editProfilePopupSubmitTitle, setEditProfilePopupSubmitTitle] = useState('Сохранить');
+  const [editAvatarPopupSubmitTitle, setEditAvatarPopupSubmitTitle] = useState('Сохранить');
+  const [addPlacePopupSubmitTitle, setAddPlacePopupSubmitTitle] = useState('Создать');
+  const [confirmationPopupSubmitTitle, setConfirmationPopupSubmitTitle] = useState('Да'); 
+
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   };
@@ -67,6 +73,7 @@ function App() {
   };
 
   function handleUpdateUser(newUserInfo) {
+    setEditProfilePopupSubmitTitle('Сохранение...')
     api.updateUserInfo(newUserInfo)
       .then((data) => {
         setCurrentUser(data);
@@ -75,9 +82,13 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
+      .finally(() => {
+        setEditProfilePopupSubmitTitle('Сохранить')
+    })
   };
 
   function handleUpdateAvatar(data) {
+    setEditAvatarPopupSubmitTitle('Сохранение...')
     api.updateAvatar(data)
       .then((data) => {
         setCurrentUser(data);
@@ -85,10 +96,14 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        setEditAvatarPopupSubmitTitle('Сохранить')
+      })
   };
 
   function handleAddPlaceSubmit(data) {
+    setAddPlacePopupSubmitTitle('Создание...')
     api.addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -96,7 +111,10 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        setAddPlacePopupSubmitTitle('Создать')
+      })
   };
 
   function handleCardLike(card) {
@@ -114,6 +132,7 @@ function App() {
   };
 
   function handleCardDelete(cardId) {
+    setConfirmationPopupSubmitTitle('Удаление...')
     api.deleteCard(cardId)
       .then(() => {
         setCards((cards) => cards.filter(card => card._id !== cardId));
@@ -121,7 +140,10 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
-      });
+      })
+      .finally(() => {
+        setConfirmationPopupSubmitTitle('Да')
+      })
   };
 
   function handleRegistration(data) {
@@ -229,21 +251,25 @@ function App() {
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
           <EditProfilePopup
+            submitTitle={editProfilePopupSubmitTitle}
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser} />
 
           <EditAvatarPopup
+            submitTitle={editAvatarPopupSubmitTitle}
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar} />
 
           <AddPlacePopup
+            submitTitle={addPlacePopupSubmitTitle}
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit} />
 
           <PopupWithConfirmation
+            submitTitle={confirmationPopupSubmitTitle}
             isOpen={isConfirmationPopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleCardDelete}

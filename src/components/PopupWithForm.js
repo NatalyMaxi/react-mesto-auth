@@ -1,4 +1,4 @@
-function PopupWithForm({ isOpen, popup, onClose, title, name, children, text, onSubmit }) {
+function PopupWithForm({ isOpen, popup, onClose, title, name, children, submitTitle, onSubmit }) {
 
    const popupIsActive = isOpen ? 'popup_is-active' : '';
    
@@ -18,7 +18,7 @@ function PopupWithForm({ isOpen, popup, onClose, title, name, children, text, on
                   className="form__button"
                   type="submit"
                   aria-label="Создать"
-                  >{text}
+                  >{submitTitle}
                   </button>
 
             </form>

@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js'
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-
-   // const [link, setlink] = useState('');
-   // const [title, setTitle] = useState('');
-
-   // function handleChangeTitle(evt) {
-   //    setTitle(evt.target.value)
-   // }
-
-   // function handleChangelink(evt) {
-   //    setlink(evt.target.value)
-   // };
-
-   // useEffect(() => {
-   //    if (!isOpen) {
-   //       setlink('')
-   //       setTitle('')
-   //    }
-   // }, [isOpen])
+function AddPlacePopup({ isOpen, onClose, onAddPlace, submitTitle }) {
 
    const [formValues, setFormValues] = useState({ name: "", link: "" });
    const handleChange = (evt) => {
@@ -47,7 +29,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
          popup="add"
          name="add-images"
          title="Новое место"
-         text="Создать"
+         submitTitle={submitTitle}
          isOpen={isOpen}
          onClose={onClose}
          onSubmit={handleSubmit}
