@@ -2,22 +2,19 @@ import { useState } from 'react';
 
 function Login({ onLogin }) {
 
-   const [loginDataUser, setLoginDataUser] = useState({});
+   const [loginDataUser, setLoginDataUser] = useState({ email: "", password: "" });
 
    function handleChange(evt) {
       const { name, value } = evt.target;
-      setLoginDataUser({
-         ...loginDataUser,
-         [name]: value
-      });
+      setLoginDataUser(prevState => ({ ...prevState, [name]: value }));
    }
-
+   
    function handleSubmit(evt) {
       evt.preventDefault();
-      if (!loginDataUser.email || !loginDataUser.password) {
-         return;
-      }
-      onLogin(loginDataUser);
+      onLogin({
+         email: loginDataUser.email,
+         password: loginDataUser.password
+      });
    }
 
    return (

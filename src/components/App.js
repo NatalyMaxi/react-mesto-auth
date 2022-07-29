@@ -28,8 +28,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistration, setIsRegistration] = useState(false);
-  const [authorizationUserEmail, setAuthorizationUserEmail] = useState('');
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
   const history = useHistory();
 
   const [editProfilePopupSubmitTitle, setEditProfilePopupSubmitTitle] = useState('Сохранить');
@@ -37,17 +37,16 @@ function App() {
   const [addPlacePopupSubmitTitle, setAddPlacePopupSubmitTitle] = useState('Создать');
   const [confirmationPopupSubmitTitle, setConfirmationPopupSubmitTitle] = useState('Да'); 
 
-
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   };
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   };
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   };
 
   function handleCardClick(card) {
@@ -55,12 +54,12 @@ function App() {
   };
 
   function handleCardDeleteClick(cardId) {
-    setIsConfirmationPopupOpen(!isConfirmationPopupOpen);
+    setIsConfirmationPopupOpen(true);
     setRemovedCardId(cardId);
   };
 
   function handleInfoTooltip() {
-    setIsInfoTooltipOpen(!isInfoTooltipOpen);
+    setIsInfoTooltipOpen(true);
   };
 
   function closeAllPopups() {
@@ -150,13 +149,13 @@ function App() {
     return auth
       .register(data)
       .then((data) => {
-        setIsRegistration(true);
+        setIsRegistrationSuccess(true);
         handleInfoTooltip();
         history.push('/sign-in');
       })
       .catch((err) => {
         console.log(err);
-        setIsRegistration(false);
+        setIsRegistrationSuccess(false);
         handleInfoTooltip();
       });
   };
@@ -180,7 +179,7 @@ function App() {
     auth
       .getContent(jwt)
       .then((data) => {
-        setAuthorizationUserEmail(data.data.email);
+        setUserEmail(data.data.email);
         setIsLoggedIn(true);
         history.push('/');
       })
@@ -226,7 +225,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header loggedIn={isLoggedIn} userEmail={authorizationUserEmail} onSignOut={handleSignOut} />
+          <Header loggedIn={isLoggedIn} userEmail={userEmail} onSignOut={handleSignOut} />
           <Switch>
             <Route path="/sign-in">
               <Login onLogin={handleAuthorization} />
@@ -278,7 +277,7 @@ function App() {
           <InfoTooltip
             onClose={closeAllPopups}
             isOpen={isInfoTooltipOpen}
-            isConfirmed={isRegistration}
+            isConfirmed={isRegistrationSuccess}
           />
         </div>
       </div>
