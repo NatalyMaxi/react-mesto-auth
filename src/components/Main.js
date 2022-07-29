@@ -15,8 +15,11 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCardLike
                <img className="profile__image" src={avatar} alt="Аватар" />
             </div>
             <div className="profile__info">
-               <h1 className="profile__title">{name}</h1>
-               <button className="profile__btn" type="button" aria-label="Редактировать" onClick={onEditProfile}></button>
+               <div className="profile__container">
+                  <h1 className="profile__title">{name}</h1>
+                  <button className="profile__btn" type="button" aria-label="Редактировать" onClick={onEditProfile}></button>
+               </div>
+               
                <p className="profile__subtitle">{about}</p>
             </div>
             <button className="profile__button" type="button" aria-label="Добавить" onClick={onAddPlace}></button>
