@@ -1,6 +1,5 @@
-'use strict'
-
 // попап редактирования профиля
+const modalWindowEdit = document.querySelector('.popup_type_edit');
 const formEditProfile = modalWindowEdit.querySelector('[name="subscribeForm"]');
 const nameInput = formEditProfile.querySelector('[name="username"]');
 const jobInput = formEditProfile.querySelector('[name="job"]');
@@ -26,7 +25,6 @@ const config = {
 };
 
 export {
-   profileEditingButton,
    formEditProfile,
    nameInput,
    jobInput,
