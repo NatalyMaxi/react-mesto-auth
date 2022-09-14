@@ -168,7 +168,10 @@ function App() {
         localStorage.setItem('jwt', data.token);
         history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        handleInfoTooltip();
+      });
   };
 
   function handleTokenCheck() {
@@ -194,7 +197,7 @@ function App() {
     if (isLoggedIn) {
       history.push('/');
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   const handleSignOut = () => {
     setIsLoggedIn(false);
