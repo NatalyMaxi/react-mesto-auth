@@ -1,4 +1,4 @@
-![LOGO](src/images/logo-black.svg)
+[![LOGO](src/images/logo-black.svg)](https://natalymaxi.github.io/react-mesto-auth/)
 # Проект: Место (версия на React) с авторизацией и регистрацией
 ![](src/images/preview.png)
 
@@ -51,5 +51,4 @@ cd react-mesto-auth
 npm install
 npm start
 ```
-
-"https://natalymaxi.github.io/react-mesto-auth"
+[Ссылка на проект Github Pages](https://natalymaxi.github.io/react-mesto-auth/)   
